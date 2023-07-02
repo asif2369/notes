@@ -1,39 +1,86 @@
+<script setup>
+import { ref } from "vue";
+
+// generate unique id
+function generateUniqueId() {
+    const digits = "0123456789";
+    let uniqueId = "";
+
+    for (let i = 0; i < 8; i++) {
+        const randomIndex = Math.floor(Math.random() * digits.length);
+        uniqueId += digits[randomIndex];
+    }
+
+    return uniqueId;
+}
+
+// generate random light color
+function getRandomColor() {
+    let color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    return color;
+}
+
+const showModal = ref(false);
+const newNote = ref("");
+const notes = ref([]);
+const errorMessage = ref("");
+
+const addNote = () => {
+    if (newNote.value.length < 9) {
+        return (errorMessage.value = "Please add at least 10 characters");
+    }
+    notes.value.push({
+        id: generateUniqueId(),
+        text: newNote.value,
+        date: new Date(),
+        backgroundColor: getRandomColor(),
+    });
+    newNote.value = "";
+    showModal.value = false;
+    errorMessage.value = "";
+};
+</script>
+
 <template>
     <main>
-        <div class="overlay">
+        <div v-if="showModal" class="overlay">
             <div class="modal">
                 <h4>Add your note</h4>
-                <textarea name="note" id="note" cols="30" rows="10"></textarea>
+                <textarea
+                    v-model.trim="newNote"
+                    name="note"
+                    id="note"
+                    cols="30"
+                    rows="10"
+                ></textarea>
+                <p v-if="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </p>
                 <div class="modal-footer">
-                    <button class="add-note">Add Note</button>
-                    <button class="close">Close</button>
+                    <button @click="addNote" class="add-note">Add Note</button>
+                    <button @click="showModal = false" class="close">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
         <div class="container">
             <header>
                 <h1>Notes</h1>
-                <button class="add-card">+</button>
+                <button @click="showModal = true" class="add-card">+</button>
             </header>
 
             <div class="cards-container">
-                <div class="card">
-                    <p class="main-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Velit tenetur saepe, facilis optio aut officia nemo,
-                        quo, eligendi a inventore perferendis odit dolor
-                        accusantium dolore.
+                <div
+                    v-for="note in notes"
+                    :key="note.id"
+                    class="card"
+                    :style="{ backgroundColor: note.backgroundColor }"
+                >
+                    <p class="main-text">{{ note.text }}</p>
+                    <p class="date">
+                        {{ note.date.toLocaleDateString("en-US") }}
                     </p>
-                    <p class="date">03/07/2023</p>
-                </div>
-                <div class="card">
-                    <p class="main-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Velit tenetur saepe, facilis optio aut officia nemo,
-                        quo, eligendi a inventore perferendis odit dolor
-                        accusantium dolore.
-                    </p>
-                    <p class="date">03/07/2023</p>
                 </div>
             </div>
         </div>
@@ -146,5 +193,10 @@ h4 {
 
 .modal-footer .close {
     background-color: rgb(202, 28, 28);
+}
+
+.error-message {
+    color: #ff0000;
+    margin-bottom: 0.5rem;
 }
 </style>
