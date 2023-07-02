@@ -2,6 +2,7 @@
     <main>
         <div class="overlay">
             <div class="modal">
+                <h4>Add your note</h4>
                 <textarea name="note" id="note" cols="30" rows="10"></textarea>
                 <div class="modal-footer">
                     <button class="add-note">Add Note</button>
@@ -59,6 +60,10 @@ h1 {
     font-weight: bold;
     font-size: 5rem;
     margin-bottom: 2rem;
+}
+
+h4 {
+    font-size: 1rem;
 }
 
 .add-card {
@@ -136,10 +141,10 @@ h1 {
 }
 
 .modal-footer .add-note {
-    background-color: rgb(56, 117, 56);
+    background-color: rgb(89, 67, 192);
 }
 
 .modal-footer .close {
-    background-color: rgb(240, 73, 73);
+    background-color: rgb(202, 28, 28);
 }
 </style>
