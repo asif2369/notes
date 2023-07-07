@@ -66,7 +66,7 @@ const addNote = () => {
         </div>
         <div class="container">
             <header>
-                <h1>Notes</h1>
+                <h1>Notes App</h1>
                 <button @click="showModal = true" class="add-card">+</button>
             </header>
 
