@@ -39,6 +39,10 @@ const addNote = () => {
     showModal.value = false;
     errorMessage.value = "";
 };
+
+const removeCard = (card) => {
+    notes.value = notes.value.filter((i) => i.id !== card.id);
+};
 </script>
 
 <template>
@@ -76,6 +80,7 @@ const addNote = () => {
                     :key="note.id"
                     class="card"
                     :style="{ backgroundColor: note.backgroundColor }"
+                    @click="removeCard(note)"
                 >
                     <p class="main-text">{{ note.text }}</p>
                     <p class="date">
