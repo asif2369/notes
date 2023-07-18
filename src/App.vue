@@ -70,7 +70,7 @@ const removeCard = (card) => {
         </div>
         <div class="container">
             <header>
-                <h1>Notes App</h1>
+                <h1>Notes</h1>
                 <button @click="showModal = true" class="add-card">+</button>
             </header>
 
@@ -135,11 +135,12 @@ h4 {
 .cards-container {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .card {
     height: 250px;
-    width: 250px;
+    width: 230px;
     background-color: lime;
     padding: 1rem;
     border-radius: 1rem;
@@ -147,6 +148,12 @@ h4 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.card:hover {
+    opacity: 0.9;
 }
 
 .date {
