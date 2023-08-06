@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import Card from "./components/Cards.vue";
 
 // generate unique id
 function generateUniqueId() {
@@ -75,18 +76,12 @@ const removeCard = (card) => {
             </header>
 
             <div class="cards-container">
-                <div
+                <Card
                     v-for="note in notes"
                     :key="note.id"
-                    class="card"
-                    :style="{ backgroundColor: note.backgroundColor }"
+                    :note="note"
                     @click="removeCard(note)"
-                >
-                    <p class="main-text">{{ note.text }}</p>
-                    <p class="date">
-                        {{ note.date.toLocaleDateString("en-US") }}
-                    </p>
-                </div>
+                />
             </div>
         </div>
     </main>
@@ -136,29 +131,6 @@ h4 {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-}
-
-.card {
-    height: 250px;
-    width: 230px;
-    background-color: lime;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: 0.25s;
-}
-
-.card:hover {
-    opacity: 0.9;
-}
-
-.date {
-    font-size: 0.75rem;
-    font-weight: bold;
 }
 
 .overlay {
